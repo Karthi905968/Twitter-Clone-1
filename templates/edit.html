@@ -1,0 +1,37 @@
+{% extends 'base.html' %} {% block content %} {% load static %}  
+<section class="content">
+    <div class="logodiv">
+        <img src="{% static 'img/twitter.png' %}" class="x-logo">
+        <h1>Home</h1>
+    </div>
+    <section class="post_form">
+        <form action="/edit/{{posts.id}}/" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input class="input" type="text" name="name" value="{{posts.name}}" required> <br>
+            <textarea class="texta" name="body" placeholder="{{posts.body}}" required></textarea><br>
+            <input class="File" type="file" name='image'><br>
+            <input class="text" type="submit" value="Update"><br>
+        </form>
+    <section class="posts">
+        <ul>
+            <li>
+                <div class="logo">
+                    <img src="{% static 'img/profile-user.png' %}">
+                </div>
+                <div class="name_body">
+                    <div class="name">{{ posts.name }}</div> 
+                    <div class="datetime">{{ posts.created_at}}</div>
+                    <p>{{ posts.body}}</p>
+                    {% if posts.image.url%}
+                    <img src='{{posts.image.url}}' alt="img" height="250px" width="500px">
+                    {% endif %}
+                </div>
+                
+            </li>
+        </ul>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.6.1.js"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <script src="{% static 'js/posts.js' %}"></script>
+</section>
+{% endblock %}
